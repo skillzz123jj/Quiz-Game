@@ -57,7 +57,6 @@ def ask_question(question, options, correct_answer):
         else:
             print("Invalid answer. Please choose 'a' or 'b'.")
 
-
 # Kysytään Helsinki-Vantaan lentokentän sijainti
 correct_country = get_airport_country()
 if correct_country:
