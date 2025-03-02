@@ -1,4 +1,4 @@
-from Game.Score import save_score_count
+from Score import save_score_count
 
 
 def ask_question(question, options):

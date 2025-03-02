@@ -21,10 +21,20 @@ def connect_database():
 connection = connect_database()
 
 #Function to execute the selected queries
-def execute_query(connection, query):
+def execute_query(connection, query, params=None):
     cursor = connection.cursor()
-    cursor.execute(query)
-    result = cursor.fetchall()
-    print("Query successful")
-    return result
+    #Handles possible parameters for safe interaction with the database
+    if params:
+        cursor.execute(query, params)
+    else:
+        cursor.execute(query)
+
+    #Fetches data if query starts with SELECT else we are modifying database
+    if query.strip().upper().startswith("SELECT"):
+        result = cursor.fetchall()
+    else:
+        connection.commit()
+        result = None
+
     cursor.close()
+    return result
