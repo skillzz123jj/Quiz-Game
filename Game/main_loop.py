@@ -41,9 +41,10 @@ def main_loop():
             print("Correct answer!")
             score_count += 100
             print(f"You got 100 points! Total points: {score_count}")
+            print()
         else:
             print("Wrong answer. Game over.")
+            print(f"Your final score: {score_count}")
+            print()
             save_score_count(score_count)
             break
-
-main_loop()
