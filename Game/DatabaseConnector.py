@@ -9,7 +9,7 @@ def connect_database():
     connection = mysql.connector.connect(
         host='127.0.0.1',
         port=3306,
-        database='quiz_game',
+        database='flight_game',
         user='root',
         password='root',
         autocommit=True,

@@ -1,10 +1,11 @@
 from Score import save_score_count
-
+from QuestionGenerator import choose_question
 
 def ask_question(question, options):
     while True:
         print(question)
-        print(options)
+        for key, option_data in options.items():
+            print(f"{key}. {option_data['answer']}")
 
         answer = int(input("Please pick the right answer: "))
         # TODO: implement input validation
@@ -21,20 +22,16 @@ def main_loop():
 
     while True:
         # TODO: this should come from the database
-        question = "placeholder question"
+        question, options = choose_question()
         # TODO: these should come from the database
-        options = {
-            1: "Placeholder option 1",
-            2: "Placeholder option 2",
-        }
+
         # TODO: if Game.Inputs.ask_question function is used, that
         #  function should somehow tell main_loop if the given answer
         #  was correct, so that main_loop can either increase the score
         #  or stop the game
         user_answer = ask_question(question, options)
 
-        # TODO: this should come from the database
-        correct_answer = 1
+        correct_answer = next(num for num, data in options.items() if data["is_correct"])
         is_answer_correct = user_answer == correct_answer
 
         if is_answer_correct:
