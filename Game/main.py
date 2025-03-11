@@ -9,7 +9,7 @@ def ask_input(prompt, options):
         answer = input(prompt).lower().strip()
         if answer in options:
             return answer
-        print(colored_text("⚠️ Invalid answer.", 33))
+        print(colored_text("\n⚠️ Invalid answer.\n", 33))
 
 print_logo()
 while True:

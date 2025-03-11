@@ -25,13 +25,13 @@ def ask_question(question, options, correct_answer):
         numbers = ['1', '2']
         if answer in numbers:
             if answer == correct_answer:
-                print(colored_text("✅ Correct! 🎉", 32))
+                print(colored_text("\n✅ Correct! 🎉", 32))
                 return True  # Correct answer
             else:
-                print(colored_text("❌ Wrong answer! Game over.", 31))
+                print(colored_text("\n❌ Wrong answer! Game over.", 31))
                 return False  # Wrong answer, game ends
         else:
-            print(colored_text("⚠️ Invalid answer. Please choose '1' or '2'.", 33))
+            print(colored_text("\n⚠️ Invalid answer. Please choose '1' or '2'.", 33))
 
 def main_loop():
     score_count = 0
