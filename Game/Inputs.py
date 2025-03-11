@@ -1,5 +1,6 @@
 from Score import save_score_count
 from DatabaseConnector import execute_query
+from logo import colored_text
 
 # Fetches Helsinki-Vantaa airport's country code
 def get_airport_country():
@@ -16,20 +17,21 @@ def get_airport_elevation():
 # Asks a question and validates the user’s answer
 def ask_question(question, options, correct_answer):
     while True:
-       print("\n" + question)
-        for key, value in options.items():
-            print(f"{key}) {value}")
+        print("\n" + question)
+        for key, option_data in options.items():
+            print(f"{key}. {option_data['answer']}")
 
-        answer = input("Your answer (a/b): ")
-        if answer in options:
+        answer = input("Please pick the right answer: ")
+        numbers = ['1', '2']
+        if answer in numbers:
             if answer == correct_answer:
-                print("✅ Correct! 🎉")
+                print(colored_text("✅ Correct! 🎉", 32))
                 return True  # Correct answer
             else:
-                print("❌ Wrong answer! Game over.")
+                print(colored_text("❌ Wrong answer! Game over.", 31))
                 return False  # Wrong answer, game ends
         else:
-            print("⚠️ Invalid answer. Please choose 'a' or 'b'.")
+            print(colored_text("⚠️ Invalid answer. Please choose '1' or '2'.", 33))
 
 def main_loop():
     score_count = 0
@@ -68,4 +70,3 @@ def main_loop():
     print(f"🎉 Game finished! Your final score: {score_count}")
     save_score_count(score_count)
 
-main_loop()

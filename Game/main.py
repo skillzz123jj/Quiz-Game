@@ -1,8 +1,7 @@
-from Game.Score import create_score_table, fetch_highest_scores
-from Game.logo import print_logo
-from Game.main_loop import main_loop
+from Score import create_score_table, fetch_highest_scores
+from logo import print_logo, colored_text
+from main_loop import main_loop
 
-# This function is here just for testing purposes.
 def ask_input(prompt, options):
     for key, value in options.items():
         print(f"{key}) {value}")
@@ -10,8 +9,7 @@ def ask_input(prompt, options):
         answer = input(prompt).lower().strip()
         if answer in options:
             return answer
-        print("Invalid answer")
-
+        print(colored_text("⚠️ Invalid answer.", 33))
 
 print_logo()
 while True:

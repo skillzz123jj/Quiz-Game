@@ -24,9 +24,9 @@ def save_score_count(score_count):
 def fetch_highest_scores():
     query = "SELECT * FROM score ORDER BY total_score DESC"
     scores = DatabaseConnector.execute_query(DatabaseConnector.connection, query)
-
+    print("Top scroes:\n")
     if len(scores) == 0:
-        print("No scores found")
+        print("\nNo scores found")
         return
 
     #If user has 5 or fewer scores in the database they all get printed

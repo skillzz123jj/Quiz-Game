@@ -12,15 +12,18 @@ questions = {
     2: """SELECT name, type FROM airport 
           ORDER BY RAND() LIMIT 10""",
     3: """SELECT name, elevation_ft FROM airport 
-        ORDER BY RAND() LIMIT 10"""
+        ORDER BY RAND() LIMIT 10""",
+    4: """SELECT a.name, c.continent FROM airport a 
+             JOIN country c ON a.iso_country = c.iso_country 
+             ORDER BY RAND() LIMIT 10""",
 }
 
 def choose_question():
     question_id = random.choice(list(questions.keys()))
     query = questions[question_id]
     id, data = fetch_data(query, question_id)
-    question, options= format_question(id, data)
-    return question, options
+    question, options, awarded_points = format_question(id, data)
+    return question, options, awarded_points
 
 
 def fetch_data(query, question_id):
@@ -55,27 +58,44 @@ def format_question(question_id, data):
     chosen, options = data
     match question_id:
         case 1:
-            question, options = airport_location(chosen, options)
-            return question, options
+            question, options, awarded_points= airport_location(chosen, options)
+            return question, options, awarded_points
         case 2:
-            question, options = airport_type(chosen, options)
-            return question, options
+            question, options, awarded_points = airport_type(chosen, options)
+            return question, options, awarded_points
         case 3:
-            question, options = airport_elevation(chosen, options)
-            return question, options
-        case _:
-            return "Invalid Option"
+            question, options, awarded_points = airport_elevation(chosen, options)
+            return question, options, awarded_points
+        case 4:
+            question, options, awarded_points = airport_continent(chosen, options)
+            return question, options, awarded_points
 
 #Functions for each question type
 
 def airport_location(chosen, options :list):
     question = f"Where is {chosen} located?"
-    return question, options
+    awarded_points = 110
+    return question, options, awarded_points
 
 def airport_type(chosen, options :list):
     question = f"What is the type of {chosen}?"
-    return question, options
+    awarded_points = 120
+    return question, options, awarded_points
 
 def airport_elevation(chosen, options :list):
     question = f"What is the elevation (ft) of {chosen}?"
-    return question, options
+    awarded_points = 150
+    return question, options, awarded_points
+
+def airport_continent(chosen, options):
+    question = f"In which continent is {chosen} located?"
+    awarded_points = 100
+    #Switches how the continents are shown to the user
+    continents = {"AU": "Australia", "AF": "Africa", "NA": "North America",
+                  "SA": "South America", "AN": "Antarctica", "EU": "Europe", "AS": "Asia",
+                  "OC": "Oceania"}
+    for key, value in options.items():
+        if value["answer"] in continents:
+            value["answer"] = continents[value["answer"]]
+
+    return question, options, awarded_points
